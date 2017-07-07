@@ -3,4 +3,5 @@
     <string name="name">Name</string>
     <string name="favor">Favor</string>
     <string name="add_student">Add Student</string>
+    <string name="std_sum_and_show">Std Sum and Show</string>
 </resources>

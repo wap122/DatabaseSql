@@ -51,6 +51,6 @@ public class Student implements Serializable {
 
     @Override //thì ra là cái này, quá hiểm
     public String toString() {
-        return stdName;
+        return stdId + " " + stdName + " like " + stdFavor;
     }
 }
