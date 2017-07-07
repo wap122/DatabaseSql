@@ -28,14 +28,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initALotOfThing();
+        setEvent();
     }
 
-    private void initALotOfThing() {
-        listView = (ListView) findViewById(R.id.listView);
-        edtName = (EditText) findViewById(R.id.edt_name);
-        edtFavor = (EditText) findViewById(R.id.edt_favor);
-        db = new StudentDataBase(this);
-
+    private void setEvent() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -47,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 setAdapter();
             }
         });
+    }
+
+    private void initALotOfThing() {
+        listView = (ListView) findViewById(R.id.listView);
+        edtName = (EditText) findViewById(R.id.edt_name);
+        edtFavor = (EditText) findViewById(R.id.edt_favor);
+        db = new StudentDataBase(this);
     }
 
     public void addStudentFromActivity(View view) {
@@ -74,15 +77,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAdapter() {
-        if (db.getStudentCount() == 0) {
-            return;
-        }
         List<Student> listTemp = db.getAllStudents();
         this.listStudent = listTemp;
+
         ArrayAdapter<Student> arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, listTemp);
         listView.setAdapter(arrayAdapter);
     }
+
     private boolean isNull(int count) {
         return count == 0;
     }
