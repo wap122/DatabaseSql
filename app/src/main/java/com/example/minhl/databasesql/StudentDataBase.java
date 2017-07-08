@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class StudentDataBase extends SQLiteOpenHelper {
-
-    private Context context;
+    private static StudentDataBase studentInstance;
 
     private static final String TAG = "SQLite";
 
@@ -27,9 +26,15 @@ class StudentDataBase extends SQLiteOpenHelper {
     private static final String COLUMN_STUDENT_NAME = "Student_Name";
     private static final String COLUMN_STUDENT_FAVOR = "Student_Favor";
 
+    public static synchronized StudentDataBase getInstance(Context context) {
+        if (studentInstance == null) {
+            studentInstance = new StudentDataBase(context.getApplicationContext());
+        }
+        return studentInstance;
+    }
+
     StudentDataBase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
     }
 
     // Tạo các bảng

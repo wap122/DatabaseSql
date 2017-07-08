@@ -36,10 +36,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 db.deleteStude(listStudent.get(position));
-                if (isNull(db.getStudentCount())) {
-                    listView.setAdapter(null);
-                    return;
-                }
                 setAdapter();
             }
         });
@@ -49,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
         edtName = (EditText) findViewById(R.id.edt_name);
         edtFavor = (EditText) findViewById(R.id.edt_favor);
-        db = new StudentDataBase(this);
+        db = StudentDataBase.getInstance(this);
     }
 
     public void addStudentFromActivity(View view) {
@@ -77,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAdapter() {
+        if (isNull(db.getStudentCount())) {
+            listView.setAdapter(null);
+            return;
+        }
         List<Student> listTemp = db.getAllStudents();
         this.listStudent = listTemp;
 
